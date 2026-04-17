@@ -4,6 +4,7 @@ package main
 import (
     "fmt"
     "os"
+    "strconv"
 )
 
 func main() {
@@ -19,12 +20,25 @@ func main() {
                 fmt.Println("usage: task-cli add <description>")
                 return
             }
-            addTasks(args[2])
-        case "list":
-            if len(args) < 2 {
-                fmt.Println("usage: task-cli list")
-                return        
+            if err := addTasks(args[2]); err != nil {
+                fmt.Println("error:", err)
             }
-            listTasks()
+        case "list":
+            if err := listTasks(); err != nil {
+                fmt.Println("error:", err)
+            }
+        case "delete":
+            if len(args) < 3 {
+                fmt.Println("usage: task-cli delete <Id>")
+                return
+            }
+            Id, err := strconv.Atoi(args[2])
+            if err != nil {
+                fmt.Println("Error", err)
+                return
+            }
+            delTask(Id)
+        default:
+            fmt.Println("unknown command:", args[1])
     }
 }

@@ -4,7 +4,7 @@ import (
 	"os"
 	"fmt"
 	"time"
-	// "strconv"
+	"math"
 	"encoding/json"
 )
 
@@ -28,10 +28,17 @@ func addTasks(task string) (error) {
         fmt.Println("error:", err)
         return err
     }
-
+	max_value := math.MinInt
+	//find the highest id value
+	for _, task := range tasks {
+		if task.Id > max_value {
+			max_value = task.Id
+		}
+	}
+	
 	// creating a newTask struct slice, then adding the new task
 	newTask := Task {
-		Id: len(tasks) + 1,
+		Id: max_value + 1,
 		Description: task,
 		Status: "todo",
 		CreatedAt: time.Now(),
@@ -69,5 +76,33 @@ func listTasks() (error) {
         fmt.Printf("   Created: %s\n", task.CreatedAt.Format("2006-01-02 15:04:05"))
         fmt.Printf("   Updated: %s\n", task.UpdatedAt.Format("2006-01-02 15:04:05"))
     }
+	return nil
+}
+
+func delTask(id int) (error) {
+	tasks, err := loadTasks()
+	if err != nil {
+		return err
+	}
+	if len(tasks) == 0 {
+		fmt.Println("No tasks found to delete")
+		return nil
+	}
+	var newList[] Task 
+	for _, task := range tasks {
+		if task.Id != id {
+			newList = append(newList , task)
+		}
+	}
+	data, err := json.MarshalIndent(newList, "", "	")
+	if err != nil {
+		return err
+	}
+	// write the converted tasks list to the json file
+	err = os.WriteFile("file.json", data, 06440)
+	if err != nil {
+			fmt.Println("error:", err)
+			return err
+		}
 	return nil
 }
