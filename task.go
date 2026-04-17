@@ -1,14 +1,18 @@
+// task.go
 package main
 
-type status struct {
-	todo 		string
-	inProgress 	string
-	done 		string
+import "time"
+
+type Task struct {
+	Id 			int
+	Description string
+	Status 		string
+	CreatedAt  	time.Time
+	UpdatedAt	time.Time
 }
-type Tasks struct {
-	id 			int
-	description string
-	status 		status // struct
-	createdAt  	int
-	updatedAt	int
-}
+
+const (
+	StatusTodo			= "todo"
+	StatusInProgress 	= "in-progress"
+	StatusDone			= "done"
+)
