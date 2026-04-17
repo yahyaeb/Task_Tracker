@@ -4,7 +4,7 @@ import (
 	"os"
 	"fmt"
 	"time"
-	"math"
+	// "math"
 	"encoding/json"
 )
 
@@ -28,7 +28,7 @@ func addTasks(task string) (error) {
         fmt.Println("error:", err)
         return err
     }
-	max_value := math.MinInt
+	max_value := 0
 	//find the highest id value
 	for _, task := range tasks {
 		if task.Id > max_value {
