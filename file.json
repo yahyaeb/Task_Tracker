@@ -1,17 +1,10 @@
 [
 	{
-		"Id": 2,
-		"Description": "talk to my girl",
-		"Status": "todo",
-		"CreatedAt": "2026-04-17T15:34:11.622129319+02:00",
-		"UpdatedAt": "2026-04-17T15:34:11.622129364+02:00"
-	},
-	{
 		"Id": 4,
 		"Description": "testing",
-		"Status": "todo",
+		"Status": "done",
 		"CreatedAt": "2026-04-17T15:52:03.677521363+02:00",
-		"UpdatedAt": "2026-04-17T15:52:03.67752142+02:00"
+		"UpdatedAt": "2026-04-18T23:10:32.004171+02:00"
 	},
 	{
 		"Id": 5,
@@ -19,5 +12,12 @@
 		"Status": "todo",
 		"CreatedAt": "2026-04-17T15:52:33.586690001+02:00",
 		"UpdatedAt": "2026-04-17T15:52:33.586690052+02:00"
+	},
+	{
+		"Id": 6,
+		"Description": "eat dinner",
+		"Status": "todo",
+		"CreatedAt": "2026-04-18T22:49:35.618296+02:00",
+		"UpdatedAt": "2026-04-18T22:49:35.618296+02:00"
 	}
 ]

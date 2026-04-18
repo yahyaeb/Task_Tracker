@@ -38,6 +38,17 @@ func main() {
                 return
             }
             delTask(Id)
+        case "mark-done":
+            if len(args) < 3 {
+                fmt.Println("usage: task-cli mark-done <Id>")
+                return
+            }
+            Id, err := strconv.Atoi(args[2])
+            if err != nil {
+                fmt.Println("Error", err)
+                return
+            }
+            markDone(Id)
         default:
             fmt.Println("unknown command:", args[1])
     }
