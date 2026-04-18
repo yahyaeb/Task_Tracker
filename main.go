@@ -49,6 +49,17 @@ func main() {
                 return
             }
             markDone(Id)
+        case "mark-in-progress":
+            if len(args) < 3 {
+                fmt.Println("usage: task-cli mark-in-progress <Id>")
+                return
+            }
+            Id, err := strconv.Atoi(args[2])
+            if err != nil {
+                fmt.Println("Error", err)
+                return
+            }
+            markinProgress(Id)
         default:
             fmt.Println("unknown command:", args[1])
     }

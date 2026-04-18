@@ -137,3 +137,35 @@ func markDone(id int) (error) {
 		}
 	return nil
 }
+
+
+func markinProgress(id int) (error) {
+	tasks, err := loadTasks()
+	if err != nil {
+		return err
+	}
+
+	if len(tasks) == 0 {
+		fmt.Println("No tasks found to delete")
+		return nil
+	}
+	var newList[] Task
+	for _, task := range tasks {
+		if task.Id == id {
+			task.Status = StatusInProgress
+			task.UpdatedAt = time.Now()
+		}
+		newList = append(newList , task)
+	}
+	data, err := json.MarshalIndent(newList, "", "	")
+	if err != nil {
+		return err
+	}
+	// write the converted tasks list to the json file
+	err = os.WriteFile("file.json", data, 06440)
+	if err != nil {
+			fmt.Println("error:", err)
+			return err
+		}
+	return nil
+}
