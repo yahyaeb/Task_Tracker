@@ -169,3 +169,60 @@ func markinProgress(id int) (error) {
 		}
 	return nil
 }
+
+
+func markToDo(id int) (error) {
+	tasks, err := loadTasks()
+	if err != nil {
+		return err
+	}
+
+	if len(tasks) == 0 {
+		fmt.Println("No tasks found to delete")
+		return nil
+	}
+	var newList[] Task
+	for _, task := range tasks {
+		if task.Id == id {
+			task.Status = StatusTodo
+			task.UpdatedAt = time.Now()
+		}
+		newList = append(newList , task)
+	}
+	data, err := json.MarshalIndent(newList, "", "	")
+	if err != nil {
+		return err
+	}
+	// write the converted tasks list to the json file
+	err = os.WriteFile("file.json", data, 06440)
+	if err != nil {
+			fmt.Println("error:", err)
+			return err
+		}
+	return nil
+}
+
+func listCommands() () {
+	fmt.Printf(`
+	Usage: task-cli <command> [arguments]
+
+	Available commands:
+	%-22s %s
+	%-22s %s
+	%-22s %s
+	%-22s %s
+	%-22s %s
+	%-22s %s
+	%-22s %s
+	%-22s %s
+
+	`,
+		"add <title>", "Add a new task",
+		"update <id> <title>", "Update an existing task",
+		"delete <id>", "Delete a task",
+		"mark-in-progress <id>", "Mark a task as in-progress",
+		"mark-done <id>", "Mark a task as done",
+		"list", "List all tasks",
+		"list done|todo|in-progress", "List tasks by status",
+	)
+}

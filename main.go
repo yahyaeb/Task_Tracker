@@ -60,6 +60,19 @@ func main() {
                 return
             }
             markinProgress(Id)
+        case "To-Do":
+            if len(args) < 3 {
+                fmt.Println("usage: task-cli To-Do <Id>")
+                return
+            }
+            Id, err := strconv.Atoi(args[2])
+            if err != nil {
+                fmt.Println("Error", err)
+                return
+            }
+            markToDo(Id)
+        case "-help":
+            listCommands()
         default:
             fmt.Println("unknown command:", args[1])
     }
