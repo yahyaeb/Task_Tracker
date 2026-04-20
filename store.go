@@ -79,6 +79,26 @@ func listTasks() (error) {
 	return nil
 }
 
+func listTasksKind(kind string) (error) {
+	tasks, err := loadTasks()
+	if err != nil {
+		return err
+	}
+	if len(tasks) == 0 {
+        fmt.Println("No tasks found")
+        return nil
+    }
+    for i, task := range tasks {
+		if task.Status == kind {
+			fmt.Printf("%d) [%s] %s\n", i+1, task.Status, task.Description)
+			fmt.Printf("   ID: %d\n", task.Id)
+			fmt.Printf("   Created: %s\n", task.CreatedAt.Format("2006-01-02 15:04:05"))
+			fmt.Printf("   Updated: %s\n", task.UpdatedAt.Format("2006-01-02 15:04:05"))
+		}
+    }
+	return nil
+}
+
 func delTask(id int) (error) {
 	tasks, err := loadTasks()
 	if err != nil {

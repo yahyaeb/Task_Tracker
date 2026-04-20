@@ -24,8 +24,14 @@ func main() {
                 fmt.Println("error:", err)
             }
         case "list":
-            if err := listTasks(); err != nil {
-                fmt.Println("error:", err)
+            if len(args) == 3 {
+                if err := listTasksKind(args[2]); err != nil {
+                    fmt.Println("error:", err)
+                }
+            } else {
+                if err := listTasks(); err != nil {
+                    fmt.Println("error:", err)
+                }
             }
         case "delete":
             if len(args) < 3 {
