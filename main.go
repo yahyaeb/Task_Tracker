@@ -77,6 +77,15 @@ func main() {
                 return
             }
             markToDo(Id)
+        case "update":
+            Id, err := strconv.Atoi(args[2])
+            if err != nil {
+                fmt.Println("Error", err)
+                return
+            }
+            if len(args) == 4 {
+                updateTask(Id, args[3])
+            }
         case "-help":
             listCommands()
         default:
