@@ -190,7 +190,6 @@ func markinProgress(id int) (error) {
 	return nil
 }
 
-
 func markToDo(id int) (error) {
 	tasks, err := loadTasks()
 	if err != nil {
@@ -234,7 +233,6 @@ func listCommands() () {
 	%-22s %s
 	%-22s %s
 	%-22s %s
-	%-22s %s
 
 	`,
 		"add <title>", "Add a new task",
@@ -245,4 +243,37 @@ func listCommands() () {
 		"list", "List all tasks",
 		"list done|todo|in-progress", "List tasks by status",
 	)
+}
+
+
+func updateTask(id int, title string) (error) {
+	tasks, err := loadTasks()
+	if err != nil {
+		return err
+	}
+
+	if len(tasks) == 0 {
+		fmt.Println("No tasks found to delete")
+		return nil
+	}
+
+	var newList[] Task
+	for _, task := range tasks {
+		if task.Id == id {
+			task.Description = title
+			task.UpdatedAt = time.Now()
+		}
+		newList = append(newList , task)
+	}
+	data, err := json.MarshalIndent(newList, "", "	")
+	if err != nil {
+		return err
+	}
+	// write the converted tasks list to the json file
+	err = os.WriteFile("file.json", data, 06440)
+	if err != nil {
+			fmt.Println("error:", err)
+			return err
+		}
+	return nil
 }
